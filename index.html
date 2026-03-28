@@ -1,364 +1,1604 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sharma Properties | Premium Real Estate in Mumbai</title>
-  <meta name="description" content="Premium 2BHK & 3BHK flats in Mumbai. Verified properties, zero hidden charges. Book a free site visit with Sharma Properties today.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #0f172a;
-      --bg-darker: #0a0f1d;
-      --brand-blue: #1e40af;
-      --accent: #3b82f6;
-      --cyan: #06b6d4;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --card-bg: rgba(30, 64, 175, 0.08);
-      --card-border: rgba(59, 130, 246, 0.15);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg-dark); color: var(--text); line-height: 1.6; overflow-x: hidden; }
-    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; transition: all 0.4s ease; }
-    .nav.scrolled { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--card-border); }
-    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--accent), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .nav-cta { display: none; }
-    @media (min-width: 768px) { .nav-cta { display: block; } }
-    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 1.75rem; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem; text-decoration: none; cursor: pointer; border: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .btn-primary { background: linear-gradient(135deg, var(--brand-blue), var(--accent)); color: var(--text); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4); }
-    .btn-secondary { background: transparent; color: var(--text); border: 2px solid var(--accent); }
-    .btn-secondary:hover { background: rgba(59, 130, 246, 0.1); transform: translateY(-2px); }
-    .btn-whatsapp { background: #25D366; color: white; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3); }
-    .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4); }
-    section { position: relative; z-index: 1; padding: 5rem 1.5rem; }
-    @media (min-width: 768px) { section { padding: 7rem 2rem; } }
-    .container { max-width: 1200px; margin: 0 auto; }
-    .section-label { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--cyan); margin-bottom: 1rem; }
-    .section-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.2; margin-bottom: 1rem; }
-    .section-subtitle { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; }
-    .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 6rem; }
-    .hero-content { max-width: 800px; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 100px; font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem; }
-    .hero-badge-dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.2); } }
-    .hero-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: 1.05; margin-bottom: 1.5rem; }
-    .hero-title .highlight { background: linear-gradient(135deg, var(--accent), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero-description { font-size: 1.25rem; color: var(--text-muted); max-width: 560px; margin-bottom: 2rem; }
-    .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
-    .hero-stats { display: flex; flex-wrap: wrap; gap: 2rem; padding-top: 2rem; border-top: 1px solid var(--card-border); }
-    .hero-stat { text-align: left; }
-    .hero-stat-number { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem; color: var(--text); }
-    .hero-stat-label { font-size: 0.875rem; color: var(--text-muted); }
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
-    .pain-points { background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%); }
-    .pain-grid { display: grid; gap: 1.5rem; margin-top: 3rem; }
-    @media (min-width: 768px) { .pain-grid { grid-template-columns: repeat(3, 1fr); } }
-    .pain-card { background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(6, 182, 212, 0.05)); border: 1px solid var(--card-border); border-radius: 16px; padding: 2rem; transition: all 0.4s ease; }
-    .pain-card:hover { transform: translateY(-8px); border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-    .pain-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: rgba(59, 130, 246, 0.15); border-radius: 12px; margin-bottom: 1.25rem; }
-    .pain-icon svg { width: 24px; height: 24px; stroke: var(--accent); }
-    .pain-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; }
-    .pain-text { font-size: 0.95rem; color: var(--text-muted); }
-    .services { background: var(--bg-darker); }
-    .services-header { text-align: center; margin-bottom: 3rem; }
-    .services-header .section-subtitle { margin: 0 auto; }
-    .services-grid { display: grid; gap: 1.5rem; }
-    @media (min-width: 768px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-    .service-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 2rem; display: flex; gap: 1.25rem; transition: all 0.4s ease; cursor: default; }
-    .service-card:hover { background: rgba(30, 64, 175, 0.12); border-color: var(--accent); transform: translateX(8px); }
-    .service-icon { flex-shrink: 0; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--brand-blue), var(--accent)); border-radius: 14px; }
-    .service-icon svg { width: 28px; height: 28px; stroke: white; }
-    .service-content h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.15rem; margin-bottom: 0.5rem; }
-    .service-content p { font-size: 0.95rem; color: var(--text-muted); }
-    .why-us { background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 100%); }
-    .why-us-grid { display: grid; gap: 2rem; margin-top: 3rem; }
-    @media (min-width: 768px) { .why-us-grid { grid-template-columns: repeat(3, 1fr); } }
-    .why-card { text-align: center; padding: 2rem; }
-    .why-number { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 3.5rem; background: linear-gradient(135deg, var(--accent), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
-    .why-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; }
-    .why-text { font-size: 0.95rem; color: var(--text-muted); }
-    .testimonials { background: var(--bg-dark); }
-    .testimonials-header { text-align: center; margin-bottom: 3rem; }
-    .testimonials-header .section-subtitle { margin: 0 auto; }
-    .sample-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.25); border-radius: 100px; font-size: 0.75rem; color: var(--cyan); font-family: 'DM Sans', sans-serif; font-weight: 500; letter-spacing: 0.05em; margin-top: 0.75rem; }
-    .testimonials-grid { display: grid; gap: 1.5rem; }
-    @media (min-width: 768px) { .testimonials-grid { grid-template-columns: repeat(3, 1fr); } }
-    .testimonial-card { background: linear-gradient(135deg, rgba(30, 64, 175, 0.08), rgba(6, 182, 212, 0.04)); border: 1px solid var(--card-border); border-radius: 20px; padding: 2rem; transition: all 0.4s ease; }
-    .testimonial-card:hover { border-color: rgba(59, 130, 246, 0.3); transform: scale(1.02); }
-    .testimonial-quote { font-size: 1rem; line-height: 1.7; margin-bottom: 1.5rem; color: var(--text); }
-    .testimonial-quote::before { content: '"'; font-family: 'Syne', sans-serif; font-size: 3rem; color: var(--cyan); line-height: 0; display: block; margin-bottom: 0.5rem; }
-    .testimonial-author { display: flex; align-items: center; gap: 1rem; }
-    .testimonial-avatar { width: 48px; height: 48px; background: linear-gradient(135deg, var(--brand-blue), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
-    .testimonial-info h4 { font-weight: 600; font-size: 0.95rem; }
-    .testimonial-info p { font-size: 0.85rem; color: var(--text-muted); }
-    .cta-section { background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%); text-align: center; }
-    .cta-card { background: linear-gradient(135deg, rgba(30, 64, 175, 0.2), rgba(6, 182, 212, 0.1)); border: 1px solid var(--card-border); border-radius: 24px; padding: 3rem 2rem; max-width: 700px; margin: 0 auto; }
-    @media (min-width: 768px) { .cta-card { padding: 4rem 3rem; } }
-    .cta-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.75rem, 4vw, 2.25rem); margin-bottom: 1rem; }
-    .cta-text { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; }
-    .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-    .footer { background: var(--bg-darker); border-top: 1px solid var(--card-border); padding: 3rem 1.5rem; }
-    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; gap: 2rem; }
-    @media (min-width: 768px) { .footer-content { grid-template-columns: 2fr 1fr 1fr; } }
-    .footer-brand h3 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--accent), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
-    .footer-brand p { color: var(--text-muted); font-size: 0.95rem; }
-    .footer-section h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem; color: var(--text); }
-    .footer-links { list-style: none; }
-    .footer-links li { margin-bottom: 0.5rem; }
-    .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease; }
-    .footer-links a:hover { color: var(--cyan); }
-    .footer-bottom { max-width: 1200px; margin: 2rem auto 0; padding-top: 2rem; border-top: 1px solid var(--card-border); text-align: center; color: var(--text-muted); font-size: 0.875rem; }
-    .btn:focus-visible, a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
-    :target { scroll-margin-top: 80px; }
-    .demo-banner { position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 999; background: rgba(10, 15, 29, 0.9); border: 1px solid rgba(6, 182, 212, 0.4); backdrop-filter: blur(12px); padding: 0.6rem 1.25rem; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; pointer-events: none; }
-    .demo-banner span { color: var(--cyan); font-weight: 600; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharma Properties | Premium Real Estate in India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=DM+Sans:wght@300;400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: rgba(255,255,255,0.03);
+            --card-border: rgba(255,215,0,0.15);
+            --gold: #d4a843;
+            --gold-light: #f0c96b;
+            --off-white: #f5f0e8;
+            --muted: rgba(245,240,232,0.55);
+            --glow-gold: 0 0 30px rgba(212,168,67,0.35);
+            --glow-white: 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--off-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        h1 {
+            font-size: clamp(48px, 8vw, 88px);
+            font-weight: 900;
+        }
+
+        h2 {
+            font-size: clamp(32px, 5vw, 52px);
+        }
+
+        h3 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .label {
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .btn:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--bg-dark);
+            box-shadow: var(--glow-gold);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            box-shadow: 0 0 50px rgba(212,168,67,0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(212,168,67,0.1);
+            box-shadow: var(--glow-gold);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10,10,10,0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 15px 40px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            margin-left: 20px;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-label {
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+
+        .hero-title {
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.4s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2.5vw, 20px);
+            font-weight: 300;
+            color: var(--muted);
+            max-width: 680px;
+            margin: 0 auto 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.6s forwards;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.8s forwards;
+        }
+
+        .stat-pills {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 1s forwards;
+        }
+
+        .stat-pill {
+            padding: 12px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 100px;
+            font-family: 'DM Mono', monospace;
+            font-size: 14px;
+            color: var(--off-white);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .stat-pill span {
+            color: var(--gold);
+        }
+
+        /* Wave Divider */
+        .wave-divider {
+            width: 100%;
+            height: 80px;
+            position: relative;
+        }
+
+        .wave-divider svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 40px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            margin-bottom: 16px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Property Cards */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .property-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .property-card:hover {
+            box-shadow: var(--glow-gold);
+            border-color: rgba(255,215,0,0.3);
+        }
+
+        .property-image {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .property-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212,168,67,0.1) 0%, rgba(10,10,10,0.8) 100%);
+        }
+
+        .property-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212,168,67,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(212,168,67,0.1) 0%, transparent 50%);
+        }
+
+        .property-type-label {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 2;
+            padding: 6px 14px;
+            background: rgba(10,10,10,0.8);
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            color: var(--gold);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .property-content {
+            padding: 24px;
+        }
+
+        .property-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--off-white);
+        }
+
+        .property-location {
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .property-price {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--off-white);
+            margin-bottom: 20px;
+        }
+
+        .property-features {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .feature-tag {
+            padding: 6px 12px;
+            background: rgba(212,168,67,0.1);
+            border: 1px solid var(--card-border);
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .view-details {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--card-border);
+            border-radius: 4px;
+            color: var(--off-white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-details:hover {
+            background: rgba(212,168,67,0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Value Cards */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-card:hover {
+            box-shadow: var(--glow-gold);
+        }
+
+        .value-icon {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 24px;
+            color: var(--gold);
+        }
+
+        .value-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .value-desc {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* Virtual Tour Section */
+        .virtual-tour {
+            background: linear-gradient(180deg, rgba(212,168,67,0.05) 0%, transparent 100%);
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .virtual-tour-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .virtual-tour-text h2 {
+            margin-bottom: 20px;
+        }
+
+        .virtual-tour-text p {
+            color: var(--muted);
+            font-size: 17px;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .house-illustration {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .house-svg {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            border: 1px solid rgba(212,168,67,0.3);
+            border-radius: 50%;
+            animation: orbitSpin 20s linear infinite;
+        }
+
+        .orbit-ring-1 {
+            width: 280px;
+            height: 280px;
+        }
+
+        .orbit-ring-2 {
+            width: 360px;
+            height: 360px;
+            animation-duration: 30s;
+            animation-direction: reverse;
+        }
+
+        .orbit-ring-3 {
+            width: 440px;
+            height: 440px;
+            animation-duration: 40s;
+        }
+
+        .orbit-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: var(--glow-gold);
+        }
+
+        .orbit-ring-1 .orbit-dot { top: -4px; left: 50%; transform: translateX(-50%); }
+        .orbit-ring-2 .orbit-dot { top: 50%; right: -4px; transform: translateY(-50%); }
+        .orbit-ring-3 .orbit-dot { bottom: -4px; left: 50%; transform: translateX(-50%); }
+
+        @keyframes orbitSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Form Section */
+        .form-section {
+            background: linear-gradient(180deg, transparent 0%, rgba(212,168,67,0.03) 100%);
+        }
+
+        .form-container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 48px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(10,10,10,0.8);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: var(--off-white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212,168,67,0.2);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d4a843' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            cursor: pointer;
+        }
+
+        .form-select option {
+            background: var(--bg-dark);
+            color: var(--off-white);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--gold);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-dark);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background: var(--gold-light);
+            box-shadow: var(--glow-gold);
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        .form-success h3 {
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .form-success p {
+            color: var(--muted);
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+        }
+
+        .quote-icon {
+            width: 40px;
+            height: 40px;
+            color: var(--gold);
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            font-style: italic;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--off-white);
+            margin-bottom: 4px;
+        }
+
+        .testimonial-property {
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+            color: var(--gold);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #050505 100%);
+            padding: 80px 40px 40px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .footer-tagline {
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        .footer-contact {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .footer-contact a {
+            color: var(--off-white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: var(--gold);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: var(--card-border);
+            margin-bottom: 32px;
+        }
+
+        .footer-credit {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            color: var(--gold);
+            opacity: 0.7;
+        }
+
+        .footer-credit a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .footer-credit a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(10,10,10,0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px;
+            border-bottom: 1px solid var(--card-border);
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .mobile-menu a {
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-menu .btn {
+            margin-top: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .properties-grid,
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .values-grid {
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 16px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .properties-grid,
+            .testimonials-grid,
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .virtual-tour-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .house-illustration {
+                height: 300px;
+            }
+
+            .form-container {
+                padding: 32px 24px;
+            }
+
+            .stat-pills {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-ctas .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-contact {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .value-card {
+                padding: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <div class="demo-banner"><span>DEMO</span> — Sample page by Quantor · quantor-agency.github.io</div>
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
-
-  <nav class="nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-logo">Sharma Properties</div>
-    <a href="#cta" class="btn btn-primary nav-cta">Book Site Visit</a>
-  </nav>
-
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge reveal"><span class="hero-badge-dot"></span>Trusted by 500+ families in Mumbai</div>
-        <h1 class="hero-title reveal reveal-delay-1">Own Your Dream Home in <span class="highlight">Mumbai</span> Without the Stress</h1>
-        <p class="hero-description reveal reveal-delay-2">We help you find verified 2BHK and 3BHK flats in prime locations. No hidden charges. No false promises. Just your new home waiting for you.</p>
-        <div class="hero-ctas reveal reveal-delay-3">
-          <a href="#cta" class="btn btn-primary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-            Book Free Site Visit
-          </a>
-          <a href="tel:+910000000000" class="btn btn-secondary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            Call Now
-          </a>
-        </div>
-        <div class="hero-stats reveal reveal-delay-4">
-          <div class="hero-stat"><div class="hero-stat-number">500+</div><div class="hero-stat-label">Happy Homeowners</div></div>
-          <div class="hero-stat"><div class="hero-stat-number">15+</div><div class="hero-stat-label">Years Experience</div></div>
-          <div class="hero-stat"><div class="hero-stat-number">100%</div><div class="hero-stat-label">Verified Properties</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="pain-points">
-    <div class="container">
-      <div class="section-label reveal">Why Most People Struggle</div>
-      <h2 class="section-title reveal reveal-delay-1">House Hunting Shouldn't Be This Hard</h2>
-      <p class="section-subtitle reveal reveal-delay-2">We've helped hundreds of families who faced these exact problems.</p>
-      <div class="pain-grid">
-        <div class="pain-card reveal">
-          <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-          <h3 class="pain-title">Fake Listings Everywhere</h3>
-          <p class="pain-text">You call about a flat, but it's already sold or the price is completely different. Wasted weekends, broken trust.</p>
-        </div>
-        <div class="pain-card reveal reveal-delay-1">
-          <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-          <h3 class="pain-title">Hidden Costs Surprise You</h3>
-          <p class="pain-text">Builder charges, maintenance deposits, legal fees — costs that appear only after you've said yes.</p>
-        </div>
-        <div class="pain-card reveal reveal-delay-2">
-          <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <h3 class="pain-title">Agents Who Disappear</h3>
-          <p class="pain-text">They're responsive until you pay. Then good luck getting updates on construction or possession dates.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="services" id="services">
-    <div class="container">
-      <div class="services-header">
-        <div class="section-label reveal">What We Do</div>
-        <h2 class="section-title reveal reveal-delay-1">One Partner for Everything</h2>
-        <p class="section-subtitle reveal reveal-delay-2">From finding your flat to handing over the keys, we handle it all.</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-          <div class="service-content"><h3>Premium 2BHK / 3BHK Flats</h3><p>Handpicked properties in Andheri, Powai, Thane, and emerging hotspots. Every listing verified before we show it to you.</p></div>
-        </div>
-        <div class="service-card reveal reveal-delay-1">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-          <div class="service-content"><h3>Investment Consulting</h3><p>Not sure where to invest? We analyze your budget, goals, and timeline to recommend properties with real appreciation potential.</p></div>
-        </div>
-        <div class="service-card reveal reveal-delay-2">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-          <div class="service-content"><h3>Free Site Visit Booking</h3><p>Schedule a visit in 2 minutes. We arrange everything — transportation, builder meetings, and a complete property walkthrough.</p></div>
-        </div>
-        <div class="service-card reveal reveal-delay-3">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-          <div class="service-content"><h3>Rental Management</h3><p>Own a flat you're renting out? We handle tenant verification, rent collection, and maintenance so you don't have to.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="why-us">
-    <div class="container">
-      <div class="section-label reveal" style="text-align:center;">Why Choose Us</div>
-      <h2 class="section-title reveal reveal-delay-1" style="text-align:center;">The Sharma Properties Difference</h2>
-      <p class="section-subtitle reveal reveal-delay-2" style="text-align:center; margin:0 auto;">We're not here to sell. We're here to help you buy right.</p>
-      <div class="why-us-grid">
-        <div class="why-card reveal"><div class="why-number">15+</div><h3 class="why-title">Years in Mumbai Real Estate</h3><p class="why-text">We know every neighborhood, builder, and project. That knowledge saves you from bad deals.</p></div>
-        <div class="why-card reveal reveal-delay-1"><div class="why-number">100%</div><h3 class="why-title">Verified Properties</h3><p class="why-text">Legal clearances, builder reputation, possession timeline — we check everything before you even visit.</p></div>
-        <div class="why-card reveal reveal-delay-2"><div class="why-number">0</div><h3 class="why-title">Hidden Charges</h3><p class="why-text">What we quote is what you pay. Complete transparency on pricing, fees, and all costs involved.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="testimonials">
-    <div class="container">
-      <div class="testimonials-header">
-        <div class="section-label reveal">Client Stories</div>
-        <h2 class="section-title reveal reveal-delay-1">Families We've Helped</h2>
-        <p class="section-subtitle reveal reveal-delay-2">Real people. Real homes. Real results.</p>
-        <div class="reveal reveal-delay-3" style="display:flex; justify-content:center; margin-top:0.5rem;">
-          <span class="sample-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Sample reviews for demonstration</span>
-        </div>
-      </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card reveal">
-          <p class="testimonial-quote">We wasted 6 months dealing with agents who showed us properties out of our budget. Sharma Properties found us our perfect 2BHK in Thane within 3 weeks. They even negotiated 8% off the asking price.</p>
-          <div class="testimonial-author"><div class="testimonial-avatar">RK</div><div class="testimonial-info"><h4>Rajesh Kumar</h4><p>IT Manager, Thane</p></div></div>
-        </div>
-        <div class="testimonial-card reveal reveal-delay-1">
-          <p class="testimonial-quote">As an NRI, buying property in India felt impossible. The team handled everything — documentation, site visits via video call, registration. I didn't have to travel once. Incredible service.</p>
-          <div class="testimonial-author"><div class="testimonial-avatar">SP</div><div class="testimonial-info"><h4>Sneha Patel</h4><p>Software Engineer, Dubai</p></div></div>
-        </div>
-        <div class="testimonial-card reveal reveal-delay-2">
-          <p class="testimonial-quote">I was skeptical of real estate agents after bad experiences. But these guys are different. No pressure, complete honesty about pros and cons. They helped me avoid a project with legal issues.</p>
-          <div class="testimonial-author"><div class="testimonial-avatar">AM</div><div class="testimonial-info"><h4>Amit Mehta</h4><p>Business Owner, Andheri</p></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta-section" id="cta">
-    <div class="container">
-      <div class="cta-card reveal">
-        <h2 class="cta-title">Ready to Find Your New Home?</h2>
-        <p class="cta-text">Book a free site visit this weekend. No commitment, no pressure. Just come see what's available.</p>
-        <div class="cta-buttons">
-          <a href="https://wa.me/910000000000" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp Us Now
-          </a>
-          <a href="tel:+910000000000" class="btn btn-secondary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            Call +91 00000 00000
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Sharma Properties</h3>
-        <p>Your trusted partner for premium real estate in Mumbai. Helping families find their dream homes since 2009.</p>
-      </div>
-      <div class="footer-section">
-        <h4>Quick Links</h4>
-        <ul class="footer-links">
-          <li><a href="#services">Our Services</a></li>
-          <li><a href="#cta">Book Site Visit</a></li>
-          <li><a href="tel:+910000000000">Call Us</a></li>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <a href="#" class="logo">SHARMA PROPERTIES</a>
+        <ul class="nav-links">
+            <li><a href="#properties">Properties</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="nav-cta"><a href="#inquiry" class="btn btn-ghost">Book a Viewing</a></li>
         </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Contact</h4>
-        <ul class="footer-links">
-          <li>Mumbai, Maharashtra, India</li>
-          <li><a href="tel:+910000000000">+91 00000 00000</a></li>
-          <li><a href="mailto:info@sharmaproperties.com">info@sharmaproperties.com</a></li>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="#properties">Properties</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#inquiry" class="btn btn-ghost">Book a Viewing</a></li>
         </ul>
-      </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Sharma Properties. All rights reserved. &nbsp;·&nbsp; Demo page by <a href="https://quantor-agency.github.io" style="color:var(--cyan); text-decoration:none;">Quantor</a></p>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        <div class="hero-content">
+            <p class="label hero-label">PREMIUM REAL ESTATE · INDIA</p>
+            <h1 class="hero-title">Find Your Perfect Property.<br>Live the Life You've Earned.</h1>
+            <p class="hero-subtitle">Luxury homes, commercial spaces, and premium plots — handpicked, verified, and ready for you.</p>
+            <div class="hero-ctas">
+                <a href="#properties" class="btn btn-primary">Explore Properties</a>
+                <a href="#inquiry" class="btn btn-ghost">Schedule a Call</a>
+            </div>
+            <div class="stat-pills">
+                <div class="stat-pill"><span>500+</span> Properties</div>
+                <div class="stat-pill"><span>12</span> Years Experience</div>
+                <div class="stat-pill"><span>98%</span> Client Satisfaction</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wave Divider -->
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path fill="rgba(212,168,67,0.03)" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"></path>
+        </svg>
     </div>
-  </footer>
 
-  <script>
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let mouseX = 0, mouseY = 0;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    <!-- Featured Properties -->
+    <section class="section" id="properties">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="label">Handpicked Selection</p>
+                <h2 class="section-title">Featured Listings</h2>
+            </div>
+            <div class="properties-grid">
+                <div class="property-card reveal" data-delay="0">
+                    <div class="property-image">
+                        <span class="property-type-label">3BHK Villa</span>
+                    </div>
+                    <div class="property-content">
+                        <h3 class="property-name">Royal Palm Estate</h3>
+                        <p class="property-location">Gurugram, Haryana</p>
+                        <p class="property-price">₹1.2Cr</p>
+                        <div class="property-features">
+                            <span class="feature-tag">3,200 Sq. Ft.</span>
+                            <span class="feature-tag">3 Bedrooms</span>
+                            <span class="feature-tag">2 Parking</span>
+                        </div>
+                        <button class="view-details">View Details</button>
+                    </div>
+                </div>
+                <div class="property-card reveal" data-delay="100">
+                    <div class="property-image">
+                        <span class="property-type-label">Commercial Space</span>
+                    </div>
+                    <div class="property-content">
+                        <h3 class="property-name">Business Hub Tower</h3>
+                        <p class="property-location">Connaught Place, Delhi</p>
+                        <p class="property-price">₹85L</p>
+                        <div class="property-features">
+                            <span class="feature-tag">1,800 Sq. Ft.</span>
+                            <span class="feature-tag">Office Space</span>
+                            <span class="feature-tag">1 Parking</span>
+                        </div>
+                        <button class="view-details">View Details</button>
+                    </div>
+                </div>
+                <div class="property-card reveal" data-delay="200">
+                    <div class="property-image">
+                        <span class="property-type-label">Premium Plot</span>
+                    </div>
+                    <div class="property-content">
+                        <h3 class="property-name">Sunset Valley Plot</h3>
+                        <p class="property-location">Jaipur, Rajasthan</p>
+                        <p class="property-price">₹45L</p>
+                        <div class="property-features">
+                            <span class="feature-tag">2,400 Sq. Ft.</span>
+                            <span class="feature-tag">Residential</span>
+                            <span class="feature-tag">Corner Plot</span>
+                        </div>
+                        <button class="view-details">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    <!-- Wave Divider -->
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path fill="rgba(212,168,67,0.03)" d="M0,0 C480,80 960,0 1440,80 L1440,80 L0,80 Z"></path>
+        </svg>
+    </div>
 
-    class Particle {
-      constructor() { this.reset(); }
-      reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.max(1, Math.random() * 2 + 0.5); this.speedX = (Math.random() - 0.5) * 0.3; this.speedY = (Math.random() - 0.5) * 0.3; this.opacity = Math.random() * 0.5 + 0.1; }
-      update() {
-        this.x += this.speedX; this.y += this.speedY;
-        const dx = mouseX - this.x, dy = mouseY - this.y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 150) { const f = (150 - dist) / 150; this.x -= dx * f * 0.01; this.y -= dy * f * 0.01; }
-        if (this.x < 0) this.x = canvas.width; if (this.x > canvas.width) this.x = 0;
-        if (this.y < 0) this.y = canvas.height; if (this.y > canvas.height) this.y = 0;
-      }
-      draw() { ctx.beginPath(); ctx.arc(this.x, this.y, Math.max(0.5, this.size), 0, Math.PI * 2); ctx.fillStyle = 'rgba(59,130,246,' + Math.max(0, Math.min(1, this.opacity)) + ')'; ctx.fill(); }
-    }
+    <!-- Why Choose Us -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="label">Our Promise</p>
+                <h2 class="section-title">Why Clients Trust Us</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card reveal" data-delay="0">
+                    <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    <h3 class="value-title">Verified Listings Only</h3>
+                    <p class="value-desc">Every property undergoes rigorous verification. We personally inspect each listing to ensure authenticity and legal compliance.</p>
+                </div>
+                <div class="value-card reveal" data-delay="100">
+                    <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <h3 class="value-title">End-to-End Assistance</h3>
+                    <p class="value-desc">From property search to final handover, our dedicated team guides you through every step. Your journey, our expertise.</p>
+                </div>
+                <div class="value-card reveal" data-delay="200">
+                    <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <h3 class="value-title">Legal Documentation Support</h3>
+                    <p class="value-desc">Navigate complex paperwork with ease. Our legal experts handle documentation, registration, and compliance matters.</p>
+                </div>
+                <div class="value-card reveal" data-delay="300">
+                    <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <h3 class="value-title">12 Years of Market Expertise</h3>
+                    <p class="value-desc">Over a decade of experience in Indian real estate. We know the market inside out — trends, localities, and opportunities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function initParticles() { particles = []; const n = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000)); for (let i = 0; i < n; i++) particles.push(new Particle()); }
+    <!-- Virtual Tour Strip -->
+    <section class="section virtual-tour" id="services">
+        <div class="virtual-tour-content">
+            <div class="virtual-tour-text reveal">
+                <p class="label">Experience From Anywhere</p>
+                <h2>Can't Visit in Person? Take a Virtual Tour.</h2>
+                <p>Explore every property from wherever you are. Our 3D virtual tours let you walk through homes before you book a visit. See every room, every detail, every possibility — all from your screen.</p>
+                <a href="#inquiry" class="btn btn-primary">Request Virtual Tour</a>
+            </div>
+            <div class="house-illustration reveal" data-delay="200">
+                <div class="orbit-ring orbit-ring-1"><span class="orbit-dot"></span></div>
+                <div class="orbit-ring orbit-ring-2"><span class="orbit-dot"></span></div>
+                <div class="orbit-ring orbit-ring-3"><span class="orbit-dot"></span></div>
+                <svg class="house-svg" viewBox="0 0 100 100" fill="none" stroke="var(--gold)" stroke-width="1.5">
+                    <path d="M50 15 L85 45 L85 85 L15 85 L15 45 Z" stroke-linejoin="round">
+                        <animate attributeName="stroke-dasharray" values="0,300;300,0" dur="3s" fill="freeze"/>
+                    </path>
+                    <path d="M38 85 L38 60 L62 60 L62 85">
+                        <animate attributeName="stroke-dasharray" values="0,80;80,0" dur="2s" begin="1s" fill="freeze"/>
+                    </path>
+                    <path d="M25 50 L50 25 L75 50" stroke-linecap="round">
+                        <animate attributeName="stroke-dasharray" values="0,80;80,0" dur="2s" begin="0.5s" fill="freeze"/>
+                    </path>
+                    <circle cx="70" cy="55" r="5" stroke-width="1">
+                        <animate attributeName="stroke-dasharray" values="0,40;40,0" dur="1s" begin="2s" fill="freeze"/>
+                    </circle>
+                </svg>
+            </div>
+        </div>
+    </section>
 
-    function drawConnections() {
-      for (let i = 0; i < particles.length; i++) for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 120) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = 'rgba(6,182,212,' + Math.max(0, (1 - dist/120) * 0.15) + ')'; ctx.lineWidth = 1; ctx.stroke(); }
-      }
-    }
+    <!-- Wave Divider -->
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path fill="rgba(212,168,67,0.03)" d="M0,80 C720,0 720,80 1440,0 L1440,80 L0,80 Z"></path>
+        </svg>
+    </div>
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const g = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, Math.max(canvas.width, canvas.height)/1.5);
-      g.addColorStop(0, 'rgba(30,64,175,0.05)'); g.addColorStop(1, 'rgba(15,23,42,0)');
-      ctx.fillStyle = g; ctx.fillRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => { p.update(); p.draw(); });
-      drawConnections();
-      requestAnimationFrame(animate);
-    }
+    <!-- Inquiry Form -->
+    <section class="section form-section" id="inquiry">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="label">Get Started</p>
+                <h2 class="section-title">Find Your Dream Property</h2>
+            </div>
+            <div class="form-container reveal">
+                <form id="inquiryForm">
+                    <div class="form-group">
+                        <label class="form-label" for="fullName">Full Name</label>
+                        <input type="text" id="fullName" class="form-input" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-input" placeholder="+91 98765 43210" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="propertyType">Property Type</label>
+                        <select id="propertyType" class="form-select" required>
+                            <option value="">Select property type</option>
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="plot">Plot</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="budget">Budget Range</label>
+                        <select id="budget" class="form-select" required>
+                            <option value="">Select budget range</option>
+                            <option value="under50">Under ₹50L</option>
+                            <option value="50to1cr">₹50L – ₹1Cr</option>
+                            <option value="1crto3cr">₹1Cr – ₹3Cr</option>
+                            <option value="above3cr">Above ₹3Cr</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message">Message</label>
+                        <textarea id="message" class="form-textarea" placeholder="Tell us about your requirements..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send My Enquiry</button>
+                </form>
+                <div class="form-success" id="formSuccess">
+                    <h3>Thank You for Your Enquiry</h3>
+                    <p>Our team will contact you within 24 hours. We're excited to help you find your perfect property.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-    resizeCanvas(); initParticles();
-    if (!prefersReducedMotion) animate();
-    window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+    <!-- Wave Divider -->
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path fill="rgba(212,168,67,0.03)" d="M0,40 C360,0 1080,80 1440,40 L1440,0 L0,0 Z"></path>
+        </svg>
+    </div>
 
-    const nav = document.querySelector('.nav');
-    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
-    nav.classList.toggle('scrolled', window.scrollY > 50);
+    <!-- Testimonials -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="label">Client Stories</p>
+                <h2 class="section-title">What Our Clients Say</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal" data-delay="0">
+                    <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                    </svg>
+                    <p class="testimonial-text">Sharma Properties made finding our dream home effortless. Their attention to detail and understanding of our needs was exceptional. Highly recommend their services.</p>
+                    <p class="testimonial-author">Rajesh Mehta</p>
+                    <p class="testimonial-property">3BHK Villa, Gurugram</p>
+                </div>
+                <div class="testimonial-card reveal" data-delay="100">
+                    <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                    </svg>
+                    <p class="testimonial-text">As an investor, I've worked with many realtors. The transparency and professionalism at Sharma Properties is unmatched. They found me the perfect commercial space.</p>
+                    <p class="testimonial-author">Priya Sharma</p>
+                    <p class="testimonial-property">Commercial Office, Delhi</p>
+                </div>
+                <div class="testimonial-card reveal" data-delay="200">
+                    <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                    </svg>
+                    <p class="testimonial-text">The legal documentation support was a lifesaver. They handled everything from verification to registration. We felt supported throughout the entire process.</p>
+                    <p class="testimonial-author">Amit & Sunita Verma</p>
+                    <p class="testimonial-property">Premium Plot, Jaipur</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    const revealObserver = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-  </script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-logo">SHARMA PROPERTIES</p>
+            <p class="footer-tagline muted">Premium Real Estate. Trusted Relationships.</p>
+            <div class="footer-contact">
+                <a href="tel:+919876543210">+91 98765 43210</a>
+                <a href="mailto:hello@sharmaproperties.in">hello@sharmaproperties.in</a>
+            </div>
+            <div class="footer-divider"></div>
+            <p class="footer-credit">Demo site built by <a href="https://quantor.agency" target="_blank" rel="noopener">QUANTOR</a> — quantor.agency</p>
+        </div>
+    </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Initialize variables first
+        let scene, camera, renderer, shapes = [];
+        let mouseX = 0, mouseY = 0;
+        let targetMouseX = 0, targetMouseY = 0;
+        let animationId = null;
+        
+        // Check for reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+        // Three.js Hero Background
+        function initThreeJS() {
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+
+            scene = new THREE.Scene();
+            
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 30;
+
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: canvas, 
+                antialias: true, 
+                alpha: true 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Create floating geometric shapes
+            const geometryTypes = [
+                new THREE.OctahedronGeometry(2, 0),
+                new THREE.TetrahedronGeometry(2, 0),
+                new THREE.IcosahedronGeometry(1.5, 0),
+                new THREE.OctahedronGeometry(1.2, 0)
+            ];
+
+            const goldMaterial = new THREE.MeshBasicMaterial({
+                color: 0xd4a843,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.6
+            });
+
+            const goldMaterialSolid = new THREE.MeshBasicMaterial({
+                color: 0xd4a843,
+                transparent: true,
+                opacity: 0.08
+            });
+
+            for (let i = 0; i < 12; i++) {
+                const geomIndex = i % geometryTypes.length;
+                const group = new THREE.Group();
+                
+                const wireframe = new THREE.Mesh(geometryTypes[geomIndex].clone(), goldMaterial);
+                const solid = new THREE.Mesh(geometryTypes[geomIndex].clone(), goldMaterialSolid);
+                
+                group.add(wireframe);
+                group.add(solid);
+                
+                const scale = 0.5 + Math.random() * 1.5;
+                group.scale.set(scale, scale, scale);
+                
+                group.position.x = (Math.random() - 0.5) * 60;
+                group.position.y = (Math.random() - 0.5) * 40;
+                group.position.z = (Math.random() - 0.5) * 30;
+                
+                group.userData = {
+                    rotationSpeed: {
+                        x: (Math.random() - 0.5) * 0.005,
+                        y: (Math.random() - 0.5) * 0.005,
+                        z: (Math.random() - 0.5) * 0.005
+                    },
+                    floatSpeed: 0.5 + Math.random() * 1,
+                    floatOffset: Math.random() * Math.PI * 2,
+                    originalY: group.position.y
+                };
+                
+                shapes.push(group);
+                scene.add(group);
+            }
+
+            // Add ambient particles
+            const particleGeometry = new THREE.BufferGeometry();
+            const particleCount = 100;
+            const positions = new Float32Array(particleCount * 3);
+            
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 100;
+                positions[i + 1] = (Math.random() - 0.5) * 100;
+                positions[i + 2] = (Math.random() - 0.5) * 50;
+            }
+            
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            
+            const particleMaterial = new THREE.PointsMaterial({
+                color: 0xd4a843,
+                size: 0.1,
+                transparent: true,
+                opacity: 0.5
+            });
+            
+            const particles = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particles);
+
+            // Mouse move handler
+            document.addEventListener('mousemove', onMouseMove);
+            
+            // Resize handler
+            window.addEventListener('resize', onWindowResize);
+            
+            // Start animation
+            if (!prefersReducedMotion) {
+                animate();
+            } else {
+                renderer.render(scene, camera);
+            }
+        }
+
+        function onMouseMove(event) {
+            targetMouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            targetMouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        function onWindowResize() {
+            if (!camera || !renderer) return;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            animationId = requestAnimationFrame(animate);
+            
+            // Smooth mouse follow
+            mouseX += (targetMouseX - mouseX) * 0.05;
+            mouseY += (targetMouseY - mouseY) * 0.05;
+
+            const time = Date.now() * 0.001;
+
+            shapes.forEach((shape, index) => {
+                // Rotation
+                shape.rotation.x += shape.userData.rotationSpeed.x;
+                shape.rotation.y += shape.userData.rotationSpeed.y;
+                shape.rotation.z += shape.userData.rotationSpeed.z;
+                
+                // Float animation
+                shape.position.y = shape.userData.originalY + 
+                    Math.sin(time * shape.userData.floatSpeed + shape.userData.floatOffset) * 2;
+                
+                // Mouse parallax
+                shape.position.x += mouseX * 0.5 * (index % 2 === 0 ? 1 : -1) * 0.1;
+                shape.position.y += mouseY * 0.5 * (index % 2 === 0 ? 1 : -1) * 0.1;
+            });
+
+            camera.position.x += (mouseX * 5 - camera.position.x) * 0.02;
+            camera.position.y += (mouseY * 3 - camera.position.y) * 0.02;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        // Navigation scroll effect
+        function initNavigation() {
+            const navbar = document.getElementById('navbar');
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (!navbar || !hamburger || !mobileMenu) return;
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('show');
+                hamburger.setAttribute('aria-expanded', 
+                    hamburger.classList.contains('active'));
+            });
+
+            // Close mobile menu on link click
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('show');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+
+        // Scroll reveal animation
+        function initScrollReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.dataset.delay || 0;
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, delay);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            reveals.forEach(reveal => observer.observe(reveal));
+        }
+
+        // 3D tilt effect on property cards
+        function initTiltEffect() {
+            if (prefersReducedMotion) return;
+            
+            const cards = document.querySelectorAll('.property-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Form handling
+        function initForm() {
+            const form = document.getElementById('inquiryForm');
+            const formSuccess = document.getElementById('formSuccess');
+            
+            if (!form || !formSuccess) return;
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Hide form, show success
+                form.style.display = 'none';
+                formSuccess.classList.add('show');
+                
+                // Reset form after delay
+                setTimeout(() => {
+                    form.reset();
+                    form.style.display = 'block';
+                    formSuccess.classList.remove('show');
+                }, 5000);
+            });
+        }
+
+        // Smooth scroll for anchor links
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    
+                    const target = document.querySelector(href);
+                    if (!target) return;
+                    
+                    e.preventDefault();
+                    const offsetTop = target.offsetTop - 80;
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                    });
+                });
+            });
+        }
+
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            initThreeJS();
+            initNavigation();
+            initScrollReveal();
+            initTiltEffect();
+            initForm();
+            initSmoothScroll();
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+        });
+    </script>
 </body>
 </html>
